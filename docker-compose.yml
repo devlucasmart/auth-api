@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  postgresql:
+    container_name: auth-db
+    image: 'bitnami/postgresql:13-debian-12'
+    environment:
+      - POSTGRESQL_USERNAME=user
+      - POSTGRESQL_PASSWORD=user
+      - POSTGRESQL_DATABASE=auth-db
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'auth_db_data:/bitnami/postgresql'
+volumes:
+   auth_db_data:
+    driver: local
