@@ -12,6 +12,27 @@ services:
       - '5432:5432'
     volumes:
       - 'auth_db_data:/bitnami/postgresql'
+
+  auth-api:
+    build: './auth-api'
+    container_name: auth-api
+    depends_on:
+      - auth-db
+      - product-api
+    networks:
+      - sales-network
+    environment:
+      - PORT=3001
+      - API_SECRET=YXV0aC1hcGktc2VjcmV0LWNvbnRhaW5lci0xMjM0NTY=
+      - DB_HOST=auth-db
+      - DB_NAME=auth-db
+      - DB_USER=admin
+      - DB_PASSWORD=123456
+      - DB_PORT=5432
+      - NODE_ENV=container
+    ports:
+      - 3001:3001
+
 volumes:
    auth_db_data:
     driver: local
